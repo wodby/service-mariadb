@@ -1,0 +1,58 @@
+name: mariadb
+hostname: mariadb
+containers:
+- name: mariadb
+  ports:
+  - name: mariadb
+    number: 3365
+  env:
+  - name: MYSQL_ROOT_PASSWORD
+    value: '{{root_password}}'
+  volumes:
+  - path: /var/lib/mysql
+    name: data
+options:
+- version: 10.3
+  stability_tag: 1.2.3
+type: db
+scalable: false
+labels:
+- mariadb
+- mysql
+storage:
+- data
+tokens:
+- name: type
+  value: mysql
+  export: TYPE
+- name: host
+  value: '[ "wodby.host" ]'
+  export: HOST
+- name: port
+  value: '[ "wodby.containers.mariadb.port" ]'
+  export: PORT
+- name: username
+  generate: '[ "wodby.stack.name" ]'
+  export: USERNAME
+- name: database
+  generate: '[ "wodby.stack.name" ]'
+  export: DATABASE
+- name: password
+  generate: '[ "wodby.password", {"length": 32} ]'
+  export: PASSWORD
+- name: root_password
+  generate: '[ "wodby.password", {"length": 32} ]'
+volumes:
+- name: data
+  size: 10G
+# default
+#  type: single-write
+jobs:
+- name: mysql-check
+  title: mysql check
+  command: ["mysql", "check"]
+  type: post-deployment
+- name: mysql-upgrade
+  title: mysql upgrade
+  command: ["mysql", "upgrade"]
+  type: ugprade
