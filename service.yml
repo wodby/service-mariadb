@@ -1,4 +1,5 @@
 name: mariadb
+type: db
 hostname: mariadb
 containers:
 - name: mariadb
@@ -14,13 +15,12 @@ containers:
 options:
 - version: 10.3
   stability_tag: 1.2.3
-type: db
 scalable: false
 labels:
 - mariadb
 - mysql
 storage:
-- data
+- name: data
 tokens:
 - name: type
   value: mysql
