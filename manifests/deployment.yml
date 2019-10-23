@@ -1,0 +1,36 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  labels:
+    name: mariadb
+  name: mariadb
+spec:
+  selector:
+    matchLabels:
+      name: mariadb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      labels:
+        name: mariadb
+    spec:
+      containers:
+      - image: wodby/mariadb
+        name: mariadb
+        ports:
+        - containerPort: 3306
+          protocol: TCP
+        readinessProbe:
+          exec:
+            command:
+            - make
+            - check-ready
+            - -f
+            - /usr/local/bin/actions.mk
+          failureThreshold: 3
+          initialDelaySeconds: 20
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 3
+
