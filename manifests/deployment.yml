@@ -1,15 +1,14 @@
-apiVersion: extensions/v1beta1
-kind: Deployment
+apiVersion: apps/v1
+kind: StatefulSet
 metadata:
   labels:
     name: mariadb
   name: mariadb
 spec:
+  serviceName: mariadb
   selector:
     matchLabels:
       name: mariadb
-  strategy:
-    type: Recreate
   template:
     metadata:
       labels:
