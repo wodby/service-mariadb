@@ -42,7 +42,7 @@ tokens:
   export: PASSWORD
 - name: root_password
   generate: '[ "wodby.password", {"length": 32} ]'
-volumes:
+storage:
 - name: data
   size: 10G
 # default
