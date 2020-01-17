@@ -42,7 +42,7 @@ tokens:
   generate: '[ "wodby.password", {"length": 32} ]'
 storage:
 - name: data
-  size: 10G
+  size: 10
 # default
 #  type: single-write
 jobs:
