@@ -19,8 +19,6 @@ scalable: false
 labels:
 - mariadb
 - mysql
-storage:
-- name: data
 tokens:
 - name: type
   value: mysql
