@@ -1,5 +1,6 @@
 name: mariadb
 type: db
+title: MariaDB
 hostname: mariadb
 containers:
 - name: mariadb
