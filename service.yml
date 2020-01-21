@@ -41,9 +41,19 @@ tokens:
   export: PASSWORD
 - name: root_password
   generate: '[ "wodby.password", {"length": 32} ]'
+  
 storage:
 - name: data
+  title: Data
   size: 10
+  
+integrations:
+- name: backup-destination
+  title: Backups destination (S3 compatible storage)
+  type: s3-compat
+  required: false
+  jobsOnly: true  
+  
 # default
 #  type: single-write
 jobs:
