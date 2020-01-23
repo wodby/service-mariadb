@@ -49,7 +49,7 @@ storage:
   
 integrations:
 - name: backup-destination
-  title: Backups destination (S3 compatible storage)
+  title: Backups destination
   type: s3-compat
   required: false
   jobsOnly: true  
