@@ -4,6 +4,7 @@ title: MariaDB
 hostname: mariadb
 containers:
 - name: mariadb
+  image: wodby/mariadb
   ports:
   - name: mariadb
     number: 3365
