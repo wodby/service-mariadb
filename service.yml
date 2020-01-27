@@ -55,6 +55,15 @@ integrations:
   required: false
   jobsOnly: true  
   
+import:
+- name: data
+  title: Database import
+  archives:
+  - tar
+  - tar.gz
+  - tgz
+  - zip
+
 # default
 #  type: single-write
 jobs:
