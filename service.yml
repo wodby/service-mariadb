@@ -43,7 +43,7 @@ tokens:
 - name: root_password
   generate: '[ "wodby.password", {"length": 32} ]'
   
-storage:
+storages:
 - name: data
   title: Data
   size: 10
