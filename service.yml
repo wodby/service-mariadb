@@ -9,8 +9,16 @@ containers:
   - name: mariadb
     number: 3365
   env:
+  - name: MYSQL_PASSWORD
+    value: '{{password}}'
+    secret: true
   - name: MYSQL_ROOT_PASSWORD
     value: '{{root_password}}'
+    secret: true    
+  - name: MYSQL_USER
+    value: '{{wodby_stack_name}}'
+  - name: MYSQL_DATABASE
+    value: '{{wodby_app_name}}'    
   volumes:
   - path: /var/lib/mysql
     name: data
@@ -22,26 +30,12 @@ labels:
 - mariadb
 - mysql
 tokens:
-- name: type
-  value: mysql
-  export: TYPE
-- name: host
-  value: '[ "wodby.host" ]'
-  export: HOST
-- name: port
-  value: '[ "wodby.containers.mariadb.port" ]'
-  export: PORT
-- name: username
-  generate: '[ "wodby.stack.name" ]'
-  export: USERNAME
-- name: database
-  generate: '[ "wodby.stack.name" ]'
-  export: DATABASE
 - name: password
-  generate: '[ "wodby.password", {"length": 32} ]'
-  export: PASSWORD
+  generate:
+    regex: '[0-9a-z-]{32}'
 - name: root_password
-  generate: '[ "wodby.password", {"length": 32} ]'
+  generate:
+    regex: '[0-9a-z-]{32}'
   
 storages:
 - name: data
