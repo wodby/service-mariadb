@@ -37,6 +37,7 @@ tokens:
 storages:
 - name: data
   title: Data
+  path: /var/lib/mysql
   size: 10
   
 integrations:
