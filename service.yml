@@ -19,9 +19,6 @@ containers:
     value: '{{wodby_stack_name}}'
   - name: MYSQL_DATABASE
     value: '{{wodby_app_name}}'    
-  volumes:
-  - path: /var/lib/mysql
-    name: data
 options:
 - version: 10.4
 - version: 10.3
