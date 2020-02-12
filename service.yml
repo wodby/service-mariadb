@@ -34,7 +34,7 @@ tokens:
   generate:
     regex: '[0-9a-z-]{32}'
   
-storages:
+volumes:
 - name: data
   title: Data
   path: /var/lib/mysql
