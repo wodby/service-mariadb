@@ -19,6 +19,8 @@ containers:
     value: '{{wodby_stack_name}}'
   - name: MYSQL_DATABASE
     value: '{{wodby_app_name}}'    
+  - name: DB_DRIVER  
+    value: mysql
 options:
 - version: 10.4
 - version: 10.3
