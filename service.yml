@@ -19,6 +19,12 @@ containers:
     value: '{{wodby_stack_name}}'
   - name: MYSQL_DATABASE
     value: '{{wodby_app_name}}'    
+  - name: DB_USER
+    value: '{{env.MYSQL_USER}}'    
+  - name: DB_PASSWORD
+    value: '{{env.MYSQL_PASSWORD}}'    
+  - name: DB_NAME
+    value: '{{env.MYSQL_DATABASE}}'        
   - name: DB_DRIVER  
     value: mysql
 options:
