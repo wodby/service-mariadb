@@ -72,7 +72,7 @@ backups:
     - make
     - backup
     - 'host={{wodby_app_service_host}}'
-    - 'ignore={{db_dump_ignore_tables}}'
+    - 'ignore={{db_backup_ignore_tables}}'
     - 'filepath=/var/lib/mysql/backup.sql.gz'
   upload:
     filepath: /var/lib/mysql/backup.sql.gz
