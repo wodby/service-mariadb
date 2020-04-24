@@ -53,8 +53,8 @@ integrations:
   title: Backups destination
   type: storage
   required: false
-  jobsOnly: true  
-  
+  multiple: true
+
 import:
 - name: data
   title: Database import
@@ -63,9 +63,23 @@ import:
   - tar.gz
   - tgz
   - zip
+  
+backups:
+- name: database
+  title: Default database backup
+  create:
+    command:
+    - make
+    - backup
+    - 'host={{wodby_app_service_host}}'
+    - 'ignore={{db_dump_ignore_tables}}'
+    - 'filepath=/var/lib/mysql/backup.sql.gz'
+  upload:
+    filepath: /var/lib/mysql/backup.sql.gz
+    extension: sql.gz
+  integrations:
+  - backup-destination
 
-# default
-#  type: single-write
 jobs:
 - name: mysql-check
   title: mysql check
