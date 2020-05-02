@@ -55,15 +55,19 @@ integrations:
   required: false
   multiple: true
 
-import:
-- name: data
-  title: Database import
-  archives:
+imports:
+- name: files
+  title: Drupal files import
+  args:
+  - make
+  - files-import
+  - '{{wodby_import_url}}'
+  extensions:
   - tar
   - tar.gz
   - tgz
   - zip
-  
+
 backups:
 - name: database
   title: Default database backup
