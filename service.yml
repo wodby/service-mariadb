@@ -63,7 +63,7 @@ imports:
   - files-import
   - '{{wodby_import_url}}'
   extensions:
-  - tar
+  - gz
   - tar.gz
   - tgz
   - zip
