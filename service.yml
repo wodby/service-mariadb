@@ -56,8 +56,8 @@ integrations:
   multiple: true
 
 imports:
-- name: files
-  title: Drupal files import
+- name: database
+  title: Database import
   args:
   - make
   - files-import
