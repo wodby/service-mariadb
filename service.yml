@@ -76,6 +76,7 @@ backups:
     args:
     - make
     - backup
+    - 'user=${MYSQL_USER}'
     - 'host="{{wodby_app_service_host}}"'
     - 'ignore="{{db_backup_ignore_tables}}"'
     - 'filepath=/var/lib/mysql/backup.sql.gz'
