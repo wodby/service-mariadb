@@ -77,6 +77,7 @@ backups:
     - make
     - backup
     - 'user=${MYSQL_USER}'
+    - 'root_password=${MYSQL_ROOT_PASSWORD}'
     - 'host="{{wodby_app_service_host}}"'
     - 'ignore="{{db_backup_ignore_tables}}"'
     - 'filepath=/var/lib/mysql/backup.sql.gz'
