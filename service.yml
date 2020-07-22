@@ -8,6 +8,7 @@ containers:
   ports:
   - name: mariadb
     number: 3365
+    type: tcp
   env:
   - name: MYSQL_PASSWORD
     value: '{{password}}'
