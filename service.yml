@@ -71,6 +71,9 @@ imports:
   - tgz
   - zip
 
+database:
+  type: mariadb
+
 backups:
 - name: database
   title: Default database backup
