@@ -73,6 +73,41 @@ imports:
 
 database:
   type: mariadb
+  db:
+    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'
+    charset: 'utf8'
+    collation: 'utf8_general_ci'    
+    actions:
+      create:
+        args:
+        - make
+        - create-db
+        - 'name="{{database.db.name}}"'
+      drop:
+        args:
+        - make
+        - drop-db
+        - 'name="{{database.db.name}}"'      
+  user:
+    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'  
+    actions:
+      create: 
+        args:
+        - make
+        - create-user
+        - 'username="{{database.user.name}}"'
+        - 'password="{{database.user.password}}"'
+      drop:
+        args:
+        - make
+        - drop-user
+        - 'username="{{database.user.name}}"'
+      grant:
+        args:
+        - make
+        - grant-user
+        - 'username="{{database.user.name}}"'
+        - 'db="{{database.db.name}}"'
 
 backups:
 - name: database
