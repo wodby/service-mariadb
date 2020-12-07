@@ -59,6 +59,7 @@ database:
         - 'host="{{wodby_app_service_host}}"'        
   user:
     name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'  
+    password: '{{password}}'
     actions:
       create: 
         args:
@@ -118,12 +119,7 @@ backups:
   integrations:
   - backup-destination
 
-jobs:
-- name: mysql-check
-  title: mysql check
-  command: ["mysql", "check"]
-  type: post-deployment
-- name: mysql-upgrade
-  title: mysql upgrade
-  command: ["mysql", "upgrade"]
-  type: ugprade
+tokens:
+- name: password
+  generate:
+    regex: '[0-9a-z-]{32}'
