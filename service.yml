@@ -10,25 +10,9 @@ containers:
     number: 3365
     type: tcp
   env:
-  - name: MYSQL_PASSWORD
-    value: '{{password}}'
-    secret: true
   - name: MYSQL_ROOT_PASSWORD
     value: '{{root_password}}'
     secret: true    
-  - name: MYSQL_USER
-    value: '{{wodby_stack_name}}'
-  - name: MYSQL_DATABASE
-    value: '{{wodby_app_name}}'    
-  - name: DB_USER
-    value: '{{wodby_stack_name}}'    
-  - name: DB_PASSWORD
-    value: '{{password}}' 
-    secret: true
-  - name: DB_NAME
-    value: '{{wodby_app_name}}'        
-  - name: DB_DRIVER  
-    value: mysql
 options:
 - version: 10.4
 - version: 10.3
@@ -37,9 +21,6 @@ labels:
 - mariadb
 - mysql
 tokens:
-- name: password
-  generate:
-    regex: '[0-9a-z-]{32}'
 - name: root_password
   generate:
     regex: '[0-9a-z-]{32}'
@@ -57,6 +38,56 @@ integrations:
   required: false
   multiple: true
 
+database:
+  type: mariadb
+  db:
+    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'
+    charset: 'utf8'
+    collation: 'utf8_general_ci'    
+    actions:
+      create:
+        args:
+        - make
+        - create-db
+        - 'name="{{database.db.name}}"'
+        - 'host="{{wodby_app_service_host}}"'
+      drop:
+        args:
+        - make
+        - drop-db
+        - 'name="{{database.db.name}}"'  
+        - 'host="{{wodby_app_service_host}}"'        
+  user:
+    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'  
+    actions:
+      create: 
+        args:
+        - make
+        - create-user
+        - 'username="{{database.user.name}}"'
+        - 'password="{{database.user.password}}"'
+        - 'host="{{wodby_app_service_host}}"'        
+      drop:
+        args:
+        - make
+        - drop-user
+        - 'username="{{database.user.name}}"'
+        - 'host="{{wodby_app_service_host}}"'        
+      grant:
+        args:
+        - make
+        - grant-user
+        - 'username="{{database.user.name}}"'
+        - 'db="{{wodby_database_user_db}}"'
+        - 'host="{{wodby_app_service_host}}"'
+      revoke:
+        args:
+        - make
+        - revoke-user
+        - 'username="{{database.user.name}}"'
+        - 'db="{{wodby_database_user_db}}"'
+        - 'host="{{wodby_app_service_host}}"'
+
 imports:
 - name: database
   title: Database import
@@ -70,44 +101,6 @@ imports:
   - tar.gz
   - tgz
   - zip
-
-database:
-  type: mariadb
-  db:
-    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'
-    charset: 'utf8'
-    collation: 'utf8_general_ci'    
-    actions:
-      create:
-        args:
-        - make
-        - create-db
-        - 'name="{{database.db.name}}"'
-      drop:
-        args:
-        - make
-        - drop-db
-        - 'name="{{database.db.name}}"'      
-  user:
-    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'  
-    actions:
-      create: 
-        args:
-        - make
-        - create-user
-        - 'username="{{database.user.name}}"'
-        - 'password="{{database.user.password}}"'
-      drop:
-        args:
-        - make
-        - drop-user
-        - 'username="{{database.user.name}}"'
-      grant:
-        args:
-        - make
-        - grant-user
-        - 'username="{{database.user.name}}"'
-        - 'db="{{database.db.name}}"'
 
 backups:
 - name: database
