@@ -76,14 +76,14 @@ database:
       grant:
         args:
         - make
-        - grant-user
+        - grant-user-db
         - 'username="{{database.user.name}}"'
         - 'db="{{wodby_database_user_db}}"'
         - 'host="{{wodby_app_service_host}}"'
       revoke:
         args:
         - make
-        - revoke-user
+        - revoke-user-db
         - 'username="{{database.user.name}}"'
         - 'db="{{wodby_database_user_db}}"'
         - 'host="{{wodby_app_service_host}}"'
