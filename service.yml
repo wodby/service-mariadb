@@ -125,6 +125,6 @@ tokens:
 - name: root_password
   generate:
     regex: '[0-9a-z-]{32}'
-  name: password
+- name: password
   generate:
     regex: '[0-9a-z-]{32}'
