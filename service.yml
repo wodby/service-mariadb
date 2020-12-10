@@ -20,11 +20,7 @@ scalable: false
 labels:
 - mariadb
 - mysql
-tokens:
-- name: root_password
-  generate:
-    regex: '[0-9a-z-]{32}'
-  
+
 volumes:
 - name: data
   title: Data
@@ -126,6 +122,6 @@ backups:
   - backup-destination
 
 tokens:
-- name: password
+- name: root_password
   generate:
     regex: '[0-9a-z-]{32}'
