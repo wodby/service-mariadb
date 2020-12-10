@@ -54,6 +54,8 @@ database:
         - make
         - create-db
         - 'name="{{database.db.name}}"'
+        - 'charset="{{wodby_database_db_charset}}"'
+        - 'collation="{{wodby_database_db_collation}}"'        
         - 'host="{{wodby_app_service_host}}"'
       drop:
         args:
