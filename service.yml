@@ -49,16 +49,16 @@ database:
         args:
         - make
         - create-db
-        - name={{database.db.name}}
-        - charset={{wodby_database_db_charset}}
-        - collation={{wodby_database_db_collation}}
-        - host={{wodby_app_service_host}}
+        - 'name="{{database.db.name}}"'
+        - 'charset="{{wodby_database_db_charset}}"'
+        - 'collation="{{wodby_database_db_collation}}"'        
+        - 'host="{{wodby_app_service_host}}"'
       drop:
         args:
         - make
         - drop-db
-        - name={{database.db.name}}
-        - host={{wodby_app_service_host}}
+        - 'name="{{database.db.name}}"'  
+        - 'host="{{wodby_app_service_host}}"'        
   user:
     name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'  
     password: '{{password}}'
@@ -67,29 +67,29 @@ database:
         args:
         - make
         - create-user
-        - username={{database.user.name}}
-        - password={{database.user.password}}
-        - host={{wodby_app_service_host}}
+        - 'username="{{database.user.name}}"'
+        - 'password="{{database.user.password}}"'
+        - 'host="{{wodby_app_service_host}}"'        
       drop:
         args:
         - make
         - drop-user
-        - username={{database.user.name}}
-        - host={{wodby_app_service_host}}
+        - 'username="{{database.user.name}}"'
+        - 'host="{{wodby_app_service_host}}"'        
       grant:
         args:
         - make
         - grant-user-db
-        - username={{database.user.name}}
-        - db={{wodby_database_user_db}}
-        - host={{wodby_app_service_host}}
+        - 'username="{{database.user.name}}"'
+        - 'db="{{wodby_database_user_db}}"'
+        - 'host="{{wodby_app_service_host}}"'
       revoke:
         args:
         - make
         - revoke-user-db
-        - username={{database.user.name}}
-        - db={{wodby_database_user_db}}
-        - host={{wodby_app_service_host}}
+        - 'username="{{database.user.name}}"'
+        - 'db="{{wodby_database_user_db}}"'
+        - 'host="{{wodby_app_service_host}}"'
 
 imports:
 - name: database
