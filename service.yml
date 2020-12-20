@@ -7,7 +7,7 @@ containers:
   image: wodby/mariadb
   ports:
   - name: mariadb
-    number: 3365
+    number: 3306
     type: tcp
   env:
   - name: MYSQL_ROOT_PASSWORD
