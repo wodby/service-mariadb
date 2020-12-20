@@ -36,6 +36,7 @@ integrations:
 
 database:
   type: mariadb
+  port: 3306
   ssl: false
   root:
     username: root
