@@ -13,6 +13,12 @@ containers:
   - name: MYSQL_ROOT_PASSWORD
     value: '{{root_password}}'
     secret: true    
+  - name: MARIADB_SSL_CERT
+    value: '{{certificates.server.cert}}'
+  - name: MARIADB_SSL_KEY
+    value: '{{certificates.server.key}}'
+  - name: MARIADB_SSL_CA
+    value: '{{certificates.server.ca}}'    
 options:
 - version: 10.4
 - version: 10.3
@@ -33,6 +39,15 @@ integrations:
   type: storage
   required: false
   multiple: true
+
+certificates:
+- name: server
+  days: 365000 
+  numbits: 2048
+  paths:
+    cert: /etc/mysql/certificates/server-cert.pem
+    key: /etc/mysql/certificates/server-key.pem
+    ca: /etc/mysql/certificates/ca.pem
 
 database:
   type: mariadb
