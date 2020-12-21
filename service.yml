@@ -43,7 +43,7 @@ integrations:
 certificates:
 - name: server
   days: 365000 
-  numbits: 2048
+  length: 2048
   paths:
     cert: /etc/mysql/certificates/server-cert.pem
     key: /etc/mysql/certificates/server-key.pem
