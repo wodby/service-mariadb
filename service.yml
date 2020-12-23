@@ -59,7 +59,7 @@ database:
   db:
     name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'
     charset: 'utf8mb4'
-    collation: 'utf8mb4_unicode_ci'    
+    collation: 'utf8mb4_unicode_520_ci'    
     actions:
       create:
         args:
