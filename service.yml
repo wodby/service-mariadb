@@ -52,7 +52,7 @@ certificates:
 database:
   type: mariadb
   port: 3306
-  ssl: false
+  ssl: true
   root:
     username: root
     password: '{{root_password}}'
