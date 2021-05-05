@@ -57,7 +57,7 @@ database:
     username: root
     password: '{{root_password}}'
   db:
-    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'
+    name: '{{app.name}}_{{instance.name}}'
     charset: 'utf8mb4'
     collation: 'utf8mb4_unicode_520_ci'    
     actions:
@@ -68,15 +68,15 @@ database:
         - 'name="{{database.db.name}}"'
         - 'charset="{{database.db.charset}}"'
         - 'collation="{{database.db.collation}}"'        
-        - 'host="{{wodby_app_service_host}}"'
+        - 'host="{{database.host}}"'
       drop:
         args:
         - make
         - drop-db
         - 'name="{{database.db.name}}"'  
-        - 'host="{{wodby_app_service_host}}"'        
+        - 'host="{{database.host}}"'        
   user:
-    name: '{{wodby_app_name}}_{{wodby_app_instance_name}}'  
+    name: '{{app.name}}_{{instance.name}}'  
     password: '{{password}}'
     actions:
       create: 
@@ -97,14 +97,14 @@ database:
         - make
         - grant-user-db
         - 'username="{{database.user.name}}"'
-        - 'db="{{wodby_database_user_db}}"'
+        - 'db="{{database.db.name}}"'
         - 'host="{{database.host}}"'
       revoke:
         args:
         - make
         - revoke-user-db
         - 'username="{{database.user.name}}"'
-        - 'db="{{wodby_database_user_db}}"'
+        - 'db="{{database.db.name}}"'
         - 'host="{{database.host}}"'
 
 imports:
