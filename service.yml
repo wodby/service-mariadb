@@ -113,7 +113,8 @@ imports:
   args:
   - make
   - import
-  - 'host="{{wodby_app_service_host}}"'
+  - 'host="{{database.host}}"'
+  - 'db="{{database.db.name}}"'
   - 'source="{{wodby_import_url}}"'
   extensions:
   - gz
@@ -128,7 +129,8 @@ backups:
     args:
     - make
     - backup
-    - 'host="{{wodby_app_service_host}}"'
+    - 'host="{{database.host}}"'
+    - 'db="{{database.db.name}}"'
     - 'ignore="{{db_backup_ignore_tables}}"'
     - 'filepath=/var/lib/mysql/backup.sql.gz'
   upload:
