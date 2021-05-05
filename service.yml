@@ -66,8 +66,8 @@ database:
         - make
         - create-db
         - 'name="{{database.db.name}}"'
-        - 'charset="{{wodby_database_db_charset}}"'
-        - 'collation="{{wodby_database_db_collation}}"'        
+        - 'charset="{{database.db.charset}}"'
+        - 'collation="{{database.db.collation}}"'        
         - 'host="{{wodby_app_service_host}}"'
       drop:
         args:
@@ -85,27 +85,27 @@ database:
         - create-user
         - 'username="{{database.user.name}}"'
         - 'password="{{database.user.password}}"'
-        - 'host="{{wodby_app_service_host}}"'        
+        - 'host="{{database.host}}"'        
       drop:
         args:
         - make
         - drop-user
         - 'username="{{database.user.name}}"'
-        - 'host="{{wodby_app_service_host}}"'        
+        - 'host="{{database.host}}"'        
       grant:
         args:
         - make
         - grant-user-db
         - 'username="{{database.user.name}}"'
         - 'db="{{wodby_database_user_db}}"'
-        - 'host="{{wodby_app_service_host}}"'
+        - 'host="{{database.host}}"'
       revoke:
         args:
         - make
         - revoke-user-db
         - 'username="{{database.user.name}}"'
         - 'db="{{wodby_database_user_db}}"'
-        - 'host="{{wodby_app_service_host}}"'
+        - 'host="{{database.host}}"'
 
 imports:
 - name: database
