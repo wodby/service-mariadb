@@ -32,13 +32,6 @@ volumes:
   title: Data
   path: /var/lib/mysql
   size: 10
-  
-integrations:
-- name: backup-destination
-  title: Backups destination
-  type: storage
-  required: false
-  multiple: true
 
 certificates:
 - name: server
