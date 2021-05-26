@@ -59,6 +59,7 @@ database:
         - make
         - create-db
         - 'name="{{database.db.name}}"'
+        - 'root_password="{{database.password}}"'        
         - 'charset="{{database.db.charset}}"'
         - 'collation="{{database.db.collation}}"'        
         - 'host="{{database.host}}"'
