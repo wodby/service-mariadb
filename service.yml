@@ -60,14 +60,12 @@ database:
         - create-db
         - 'name="{{database.db.name}}"'
         - 'charset="{{database.db.charset}}"'
-        - 'root_password="{{database.root.password}}"'
         - 'collation="{{database.db.collation}}"'        
         - 'host="{{database.host}}"'
       drop:
         args:
         - make
         - drop-db
-        - 'root_password="{{database.root.password}}"'        
         - 'name="{{database.db.name}}"'  
         - 'host="{{database.host}}"'        
   user:
@@ -78,7 +76,6 @@ database:
         args:
         - make
         - create-user
-        - 'root_password="{{database.root.password}}"'        
         - 'username="{{database.user.name}}"'
         - 'password="{{database.user.password}}"'
         - 'host="{{database.host}}"'        
@@ -86,14 +83,12 @@ database:
         args:
         - make
         - drop-user
-        - 'root_password="{{database.root.password}}"'        
         - 'username="{{database.user.name}}"'
         - 'host="{{database.host}}"'        
       grant:
         args:
         - make
         - grant-user-db
-        - 'root_password="{{database.root.password}}"'        
         - 'username="{{database.user.name}}"'
         - 'db="{{database.db.name}}"'
         - 'host="{{database.host}}"'
@@ -101,7 +96,6 @@ database:
         args:
         - make
         - revoke-user-db
-        - 'root_password="{{database.root.password}}"'        
         - 'username="{{database.user.name}}"'
         - 'db="{{database.db.name}}"'
         - 'host="{{database.host}}"'
@@ -112,7 +106,6 @@ imports:
   args:
   - make
   - import
-  - 'root_password="{{database.root.password}}"'      
   - 'host="{{database.host}}"'
   - 'db="{{database.db.name}}"'
   - 'user="{{database.user.name}}"'      
@@ -130,7 +123,6 @@ backups:
     args:
     - make
     - backup
-    - 'root_password="{{database.root.password}}"'    
     - 'host="{{database.host}}"'
     - 'db="{{database.db.name}}"'
     - 'ignore="{{db_backup_ignore_tables}}"'
