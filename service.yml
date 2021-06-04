@@ -1,4 +1,5 @@
 name: mariadb
+icon: mariadb
 type: db
 title: MariaDB
 hostname: mariadb
