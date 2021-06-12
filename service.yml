@@ -36,9 +36,10 @@ volumes:
 
 certs:
 - name: server
-  days: 365000 
-  type: rsa
-  length: 2048
+  days: 365000
+  key:
+    type: rsa
+    length: 2048  
   paths:
     cert: /etc/mysql/certificates/server-cert.pem
     key: /etc/mysql/certificates/server-key.pem
