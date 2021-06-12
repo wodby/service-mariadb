@@ -34,9 +34,10 @@ volumes:
   path: /var/lib/mysql
   size: 10
 
-certificates:
+certs:
 - name: server
   days: 365000 
+  type: rsa
   length: 2048
   paths:
     cert: /etc/mysql/certificates/server-cert.pem
