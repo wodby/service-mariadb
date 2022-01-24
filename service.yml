@@ -21,8 +21,8 @@ containers:
   - name: MARIADB_SSL_CA
     value: '{{certificates.server.ca}}'    
 options:
-- version: 10.4
-- version: 10.3
+- version: '10.4'
+- version: '10.3'
 scalable: false
 labels:
 - mariadb
