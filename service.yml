@@ -145,7 +145,15 @@ tokens:
     regex: '[0-9a-z-]{32}'
 
 actions:
+- name: mysql_upgrade
+  title: Run mysql-upgrade
+  args: 
+  - make
+  - mysql-upgrade
+  - 'host="{{database.host}}"'
+  type: post_upgrade
 - name: mysql_check_db
+  title: Run mysql-check on current database
   args: 
   - make
   - mysql-check
@@ -153,16 +161,11 @@ actions:
   - 'db="{{database.db.name}}"'  
   type: post_upgrade
 - name: mysql_check_system
+  title: Run mysql-check on system database
   args: 
   - make
   - mysql-check
   - 'host="{{database.host}}"'
   - 'db="mysql"'  
-  type: post_upgrade
-- name: mysql_upgrade
-  args: 
-  - make
-  - mysql-upgrade
-  - 'host="{{database.host}}"'
   type: post_upgrade
 
