@@ -47,6 +47,7 @@ certs:
 
 database:
   type: mariadb
+  kind: mariadb
   port: 3306
   ssl: true
   root:
