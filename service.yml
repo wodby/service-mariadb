@@ -21,8 +21,7 @@ containers:
   - name: MARIADB_SSL_CA
     value: '{{certificates.server.ca}}'    
 options:
-- version: '10.4'
-- version: '10.3'
+- version: '10.8'
 scalable: false
 labels:
 - mariadb
@@ -52,7 +51,7 @@ database:
   ssl: true
   root:
     username: root
-    password: '{{root_password}}'
+    password: '{{root_password}}'  
   db:
     name: '{{app.name}}_{{instance.name}}'
     charset: 'utf8mb4'
@@ -103,6 +102,23 @@ database:
         - 'username="{{database.user.name}}"'
         - 'db="{{database.db.name}}"'
         - 'host="{{database.host}}"'
+  charsets:
+  - name: utf16
+    title: UTF-16 Unicode
+    collation: utf16_general_ci
+  - name: utf16le 
+    title: UTF-16LE Unicode
+    collation: utf16le_general_ci
+  - name: utf32 
+    title: UTF-32 Unicode
+    collation: utf32_general_ci
+  - name: utf8 
+    title: UTF-8 Unicode
+    collation: utf8_general_ci
+  - name: utf8mb4
+    title: 4-Byte UTF-8 Unicode
+    collation: utf8mb4_unicode_520_ci
+    default: true
 
 imports:
 - name: database
