@@ -2,17 +2,17 @@ apiVersion: apps/v1
 kind: StatefulSet
 metadata:
   labels:
-    name: mariadb
-  name: mariadb
+    name: '{{.Name}}'
+  name: '{{.Name}}'
 spec:
-  serviceName: mariadb
+  serviceName: '{{.Name}}'
   selector:
     matchLabels:
-      name: mariadb
+      name: '{{.Name}}'
   template:
     metadata:
       labels:
-        name: mariadb
+        name: '{{.Name}}'
     spec:
       containers:
       - image: wodby/mariadb
