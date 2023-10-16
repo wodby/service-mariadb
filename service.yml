@@ -38,7 +38,7 @@ certs:
   days: 36500
   key:
     type: rsa
-    length: 2048  
+    length: 4096  
   paths:
     cert: /etc/mysql/certificates/server-cert.pem
     key: /etc/mysql/certificates/server-key.pem
