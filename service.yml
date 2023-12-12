@@ -123,7 +123,13 @@ database:
 imports:
 - name: database
   title: Database import
-  mount: /docker-entrypoint-initdb.d
+  args:
+  - make
+  - import
+  - 'host="{{database.host}}"'
+  - 'db="{{database.db.name}}"'
+  - 'user="{{database.user.name}}"'      
+  - 'source="{{wodby_import_url}}"'
   extensions:
   - gz
   - tar.gz
