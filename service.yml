@@ -159,6 +159,18 @@ tokens:
   generate:
     regex: '[0-9a-z-]{32}'
 
+helm:
+  name: bitnami
+  source: oci://registry-1.docker.io/bitnamicharts/nginx
+  chart: oci://registry-1.docker.io/bitnamicharts/nginx
+  version: 16.0.5
+  configurations:
+  - name: php
+    labels: commonLabels
+    annotations: commonAnnotations
+    env: primary.extraEnvVars
+    resources: primary.resources
+
 actions:
 - name: mysql_upgrade
   title: Run mysql-upgrade
