@@ -5,6 +5,7 @@ title: MariaDB
 hostname: mariadb
 containers:
 - name: mariadb
+  image: bitnami/mariadb
   ports:
   - name: mariadb
     number: 3306
