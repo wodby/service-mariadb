@@ -5,24 +5,13 @@ title: MariaDB
 hostname: mariadb
 containers:
 - name: mariadb
-  image: wodby/mariadb
   ports:
   - name: mariadb
     number: 3306
     type: tcp
-  env:
-  - name: MYSQL_ROOT_PASSWORD
-    value: '{{root_password}}'
-    secret: true    
-  - name: MARIADB_SSL_CERT
-    value: '{{certificates.server.cert}}'
-  - name: MARIADB_SSL_KEY
-    value: '{{certificates.server.key}}'
-  - name: MARIADB_SSL_CA
-    value: '{{certificates.server.ca}}'    
 options:
-- version: '10.9'
-scalable: false
+- version: '11.3'
+  tag: '11.3.2-debian-12-r1'
 labels:
 - mariadb
 - mysql
@@ -30,19 +19,13 @@ labels:
 volumes:
 - name: data
   title: Data
-  path: /var/lib/mysql
   size: 10
-
-certs:
-- name: server
-  days: 36500
-  key:
-    type: rsa
-    length: 4096  
-  paths:
-    cert: /etc/mysql/certificates/server-cert.pem
-    key: /etc/mysql/certificates/server-key.pem
-    ca: /etc/mysql/certificates/ca.pem
+  helm:
+    values:
+    - name: primary.persistence.size
+      values: '{{volumes.data.size}}Gi'
+    - name: primary.persistence.enabled
+      values: true
 
 database:
   type: mariadb
@@ -161,15 +144,26 @@ tokens:
 
 helm:
   name: bitnami
-  source: oci://registry-1.docker.io/bitnamicharts/nginx
-  chart: oci://registry-1.docker.io/bitnamicharts/nginx
-  version: 16.0.5
+  source: oci://registry-1.docker.io/bitnamicharts/mariadb
+  chart: oci://registry-1.docker.io/bitnamicharts/mariadb
+  version: 18.0.2
   configurations:
-  - name: php
+  - name: mariadb
     labels: commonLabels
     annotations: commonAnnotations
     env: primary.extraEnvVars
     resources: primary.resources
+  values:
+  - name: rootPassword
+    value: '{{root_password}}'
+  - name: primary.createConfigmap
+    value: true
+
+configs: 
+- name: config
+  title: MySQL config
+  helm: primary.configuration
+  config: my.cnf
 
 actions:
 - name: mysql_upgrade
