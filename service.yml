@@ -23,9 +23,9 @@ volumes:
   helm:
     values:
     - name: primary.persistence.size
-      values: '{{volumes.data.size}}Gi'
+      value: '{{volumes.data.size}}Gi'
     - name: primary.persistence.enabled
-      values: true
+      value: true
 
 database:
   type: mariadb
