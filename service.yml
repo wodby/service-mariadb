@@ -72,24 +72,28 @@ database:
         - "CREATE USER IF NOT EXISTS '{{database.user.name}}'@'%' IDENTIFIED BY '{{database.user.password}}';"
       drop:
         args:
-        - make
-        - drop-user
-        - 'username=""'
-        - 'host="{{database.host}}"'        
+        - mysql 
+        - -uroot 
+        - -p{{root_password}} 
+        - -h{{database.host}} 
+        - -e 
+        - "DROP USER IF EXISTS '{{database.user.name}}'@'%';"
       grant:
         args:
-        - make
-        - grant-user-db
-        - 'username="{{database.user.name}}"'
-        - 'db="{{database.db.name}}"'
-        - 'host="{{database.host}}"'
+        - mysql 
+        - -uroot 
+        - -p{{root_password}} 
+        - -h{{database.host}} 
+        - -e
+        - "GRANT ALL ON {{database.db.name}}.* TO '{{database.user.name}}'@'%';"
       revoke:
         args:
-        - make
-        - revoke-user-db
-        - 'username="{{database.user.name}}"'
-        - 'db="{{database.db.name}}"'
-        - 'host="{{database.host}}"'
+        - mysql 
+        - -uroot 
+        - -p{{root_password}} 
+        - -h{{database.host}} 
+        - -e
+        - "REVOKE ALL ON {{database.db.name}}.* FROM '{{database.user.name}}'@'%';"
   charsets:
   - name: utf16
     title: UTF-16 Unicode
