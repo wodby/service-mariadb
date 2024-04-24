@@ -152,7 +152,7 @@ helm:
   configurations:
   - name: mariadb
     labels: commonLabels
-    annotations: commonAnnotations
+    annotations: primary.podAnnotations
     env: primary.extraEnvVars
     resources: primary.resources
   values:
