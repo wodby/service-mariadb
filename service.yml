@@ -177,16 +177,6 @@ configs:
   config: my.cnf
 
 actions:
-- name: mysql_upgrade
-  title: Run mysql-upgrade
-  args: 
-  - mysql_upgrade 
-  - --upgrade-system-tables 
-  - --verbose 
-  - -uroot 
-  - -p{{root_password}} 
-  - -h{{database.host}}
-  type: post_upgrade
 - name: mysql_check_db
   title: Run mysql-check on current database
   args: 
