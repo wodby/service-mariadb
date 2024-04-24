@@ -69,7 +69,7 @@ database:
         - -p{{root_password}} 
         - -h{{database.host}} 
         - -e 
-        - 'CREATE USER IF NOT EXISTS {{database.user.name}}@% IDENTIFIED BY {{database.user.password}}'
+        - "CREATE USER IF NOT EXISTS '{{database.user.name}}'@'%' IDENTIFIED BY '{{database.user.password}}';"
       drop:
         args:
         - make
