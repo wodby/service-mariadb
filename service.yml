@@ -25,6 +25,7 @@ volumes:
   title: Data
   size: 10
   helm:
+    labels: primary.persistence.labels
     values:
     - name: primary.persistence.size
       value: '{{volumes.data.size}}Gi'
