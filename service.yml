@@ -135,8 +135,8 @@ backups:
     - sh
     - -c
     - |
-      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-data --allow-keywords --skip-triggers {{database.db.name}} | gzip > /bitnami/mariadb/backup.sql.gz; 
-      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-create-info {{db_backup_ignore_tables}} --allow-keywords {{database.db.name}} | gzip >> /bitnami/mariadb/backup.sql.gz'
+      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-data --allow-keywords --skip-triggers {{database.db.name}} | gzip > /bitnami/mariadb/backup.sql.gz;
+      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-create-info {{db_backup_ignore_tables}} --allow-keywords {{database.db.name}} | gzip >> /bitnami/mariadb/backup.sql.gz
   upload:
     filepath: /bitnami/mariadb/backup.sql.gz
     extension: sql.gz
