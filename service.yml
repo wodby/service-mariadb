@@ -180,24 +180,31 @@ actions:
 - name: mysql_upgrade
   title: Run mysql-upgrade
   args: 
-  - make
-  - mysql-upgrade
-  - 'host="{{database.host}}"'
+  - mysql_upgrade 
+  - --upgrade-system-tables 
+  - --verbose 
+  - -uroot 
+  - -p{{root_password}} 
+  - -h{{database.host}}
   type: post_upgrade
 - name: mysql_check_db
   title: Run mysql-check on current database
   args: 
-  - make
-  - mysql-check
-  - 'host="{{database.host}}"'
-  - 'db="{{database.db.name}}"'  
+  - mysqlcheck
+  - --verbose 
+  - -uroot 
+  - -p{{root_password}} 
+  - -h{{database.host}}
+  - '{{database.db.name}}'
   type: post_upgrade
 - name: mysql_check_system
   title: Run mysql-check on system database
   args: 
-  - make
-  - mysql-check
-  - 'host="{{database.host}}"'
-  - 'db="mysql"'  
+  - mysqlcheck
+  - --verbose 
+  - -uroot 
+  - -p{{root_password}} 
+  - -h{{database.host}}
+  - mysql
   type: post_upgrade
 
