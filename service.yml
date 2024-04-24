@@ -48,7 +48,7 @@ database:
         - -p{{root_password}} 
         - -h{{database.host}} 
         - -e 
-        - "CREATE DATABASE IF NOT EXISTS \`{{database.db.name}}\` CHARACTER SET '{{database.db.charset}}' COLLATE '{{database.db.collation}}';"
+        - "CREATE DATABASE IF NOT EXISTS '{{database.db.name}}' CHARACTER SET '{{database.db.charset}}' COLLATE '{{database.db.collation}}';"
       drop:
         args:
         - make
@@ -66,7 +66,7 @@ database:
         - -p{{root_password}} 
         - -h{{database.host}} 
         - -e 
-        - "CREATE USER IF NOT EXISTS \`{{database.user.name}}\`@\`%\` IDENTIFIED BY '{{database.user.password}}';"
+        - "CREATE USER IF NOT EXISTS '{{database.user.name}}@%' IDENTIFIED BY '{{database.user.password}}';"
       drop:
         args:
         - make
