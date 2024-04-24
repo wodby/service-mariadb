@@ -10,6 +10,9 @@ containers:
   - name: mariadb
     number: 3306
     type: tcp
+  env:
+  - name: DISABLE_WELCOME_MESSAGE
+    value: 'true'
 options:
 - version: '11.3'
   tag: '11.3.2-debian-12-r1'
