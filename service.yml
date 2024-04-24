@@ -163,6 +163,8 @@ helm:
     value: '{{root_password}}'
   - name: primary.createConfigmap
     value: true
+  - name: auth.rootPassword
+    value: '{{root_password}}'
 
 configs: 
 - name: config
