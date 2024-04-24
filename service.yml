@@ -132,14 +132,13 @@ backups:
   title: Default database backup
   create:
     args:
-    - make
-    - backup
-    - 'host="{{database.host}}"'
-    - 'db="{{database.db.name}}"'
-    - 'ignore="{{db_backup_ignore_tables}}"'
-    - 'filepath=/var/lib/mysql/backup.sql.gz'
+    - sh
+    - -c
+    - |
+      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-data --allow-keywords --skip-triggers {{database.db.name}} | gzip > /bitnami/mariadb/backup.sql.gz; 
+      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-create-info {{db_backup_ignore_tables}} --allow-keywords {{database.db.name}} | gzip >> /bitnami/mariadb/backup.sql.gz'
   upload:
-    filepath: /var/lib/mysql/backup.sql.gz
+    filepath: /bitnami/mariadb/backup.sql.gz
     extension: sql.gz
   integrations:
   - backup-destination
@@ -151,6 +150,8 @@ tokens:
 - name: password
   generate:
     regex: '[0-9a-z-]{32}'
+- name: db_backup_ignore_tables
+  value: ''
 
 helm:
   name: bitnami
