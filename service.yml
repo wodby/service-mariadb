@@ -43,34 +43,35 @@ database:
     actions:
       create:
         args:
-        - make
-        - create-db
-        - 'name="{{database.db.name}}"'
-        - 'charset="{{database.db.charset}}"'
-        - 'collation="{{database.db.collation}}"'        
-        - 'host="{{database.host}}"'
+        - mysql 
+        - -uroot 
+        - -p{{root_password}} 
+        - -h{{database.host}} 
+        - -e 
+        - "CREATE DATABASE IF NOT EXISTS \`{{database.db.name}}\` CHARACTER SET '{{database.db.charset}}' COLLATE '{{database.db.collation}}';"
       drop:
         args:
         - make
         - drop-db
-        - 'name="{{database.db.name}}"'  
-        - 'host="{{database.host}}"'        
+        - 'name="{{database.db.name}}"'
+        - 'host="{{database.host}}"'
   user:
     name: '{{app.name}}_{{instance.name}}'  
     password: '{{password}}'
     actions:
       create: 
         args:
-        - make
-        - create-user
-        - 'username="{{database.user.name}}"'
-        - 'password="{{database.user.password}}"'
-        - 'host="{{database.host}}"'        
+        - mysql 
+        - -uroot 
+        - -p{{root_password}} 
+        - -h{{database.host}} 
+        - -e 
+        - "CREATE USER IF NOT EXISTS \`{{database.user.name}}\`@\`%\` IDENTIFIED BY '{{database.user.password}}';"
       drop:
         args:
         - make
         - drop-user
-        - 'username="{{database.user.name}}"'
+        - 'username=""'
         - 'host="{{database.host}}"'        
       grant:
         args:
