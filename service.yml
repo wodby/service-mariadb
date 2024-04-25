@@ -117,6 +117,9 @@ imports:
 - name: database
   title: Database import
   init:
+    helm:
+      volume: data
+      claim: primary.persistence.existingClaim
     mount: /docker-entrypoint-initdb.d
     env:
     - name: MYSQL_DATABASE
