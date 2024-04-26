@@ -25,12 +25,28 @@ volumes:
   title: Data
   size: 10
   helm:
-    labels: primary.persistence.labels
     values:
     - name: primary.persistence.size
       value: '{{volumes.data.size}}Gi'
     - name: primary.persistence.enabled
       value: true
+    - name: primary.persistence.existingClaim
+      value: '{{volumes.data.claim}}'
+
+imports:
+- name: database
+  title: Database import
+  init:
+    volume: data  
+    mount: /docker-entrypoint-initdb.d
+    env:
+    - name: MYSQL_DATABASE
+      value: '{{database.db.name}}'
+  extensions:
+  - gz
+  - tar.gz
+  - tgz
+  - zip
 
 database:
   type: mariadb
@@ -112,23 +128,6 @@ database:
     title: 4-Byte UTF-8 Unicode
     collation: utf8mb4_unicode_520_ci
     default: true
-
-imports:
-- name: database
-  title: Database import
-  init:
-    helm:
-      volume: data
-      claim: primary.persistence.existingClaim
-    mount: /docker-entrypoint-initdb.d
-    env:
-    - name: MYSQL_DATABASE
-      value: '{{database.db.name}}'
-  extensions:
-  - gz
-  - tar.gz
-  - tgz
-  - zip
 
 backups:
 - name: database
