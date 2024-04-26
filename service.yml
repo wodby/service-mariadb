@@ -30,6 +30,8 @@ volumes:
       value: '{{volumes.data.size}}Gi'
     - name: primary.persistence.enabled
       value: true
+    # mandatory to use existing claim since this volume has import function
+    # we will mount different claim after import and doing it through sts's volumeclaimtemplates is not supported
     - name: primary.persistence.existingClaim
       value: '{{volumes.data.claim}}'
 
