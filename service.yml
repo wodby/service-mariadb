@@ -176,6 +176,8 @@ helm:
     value: true
   - name: auth.rootPassword
     value: '{{root_password}}'
+  - name: primary.resourcesPreset
+    value: 'none'
 
 configs: 
 - name: config
