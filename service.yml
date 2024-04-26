@@ -38,8 +38,8 @@ volumes:
 imports:
 - name: database
   title: Database import
+  volume: data
   init:
-    volume: data  
     mount: /docker-entrypoint-initdb.d
     env:
     - name: MARIADB_DATABASE
