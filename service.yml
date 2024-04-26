@@ -42,7 +42,7 @@ imports:
     volume: data  
     mount: /docker-entrypoint-initdb.d
     env:
-    - name: MYSQL_DATABASE
+    - name: MARIADB_DATABASE
       value: '{{database.db.name}}'
   extensions:
   - gz
