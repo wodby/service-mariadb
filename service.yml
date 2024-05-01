@@ -5,17 +5,18 @@ title: MariaDB
 hostname: mariadb
 containers:
 - name: mariadb
-  image: bitnami/mariadb
+  image: wodby/mariadb
   ports:
   - name: mariadb
     number: 3306
     type: tcp
   env:
-  - name: DISABLE_WELCOME_MESSAGE
-    value: 'true'
+  - name: MYSQL_ROOT_PASSWORD
+    value: '{{root_password}}'
+    secret: true
 options:
-- version: '11.3'
-  tag: '11.3.2-debian-12-r1'
+- version: '11.2'
+  tag: '11.2'
 labels:
 - mariadb
 - mysql
@@ -42,7 +43,7 @@ imports:
   init:
     mount: /docker-entrypoint-initdb.d
     env:
-    - name: MARIADB_DATABASE
+    - name: MYSQL_DATABASE
       value: '{{database.db.name}}'
   extensions:
   - gz
@@ -65,54 +66,49 @@ database:
     actions:
       create:
         args:
-        - mysql 
-        - -uroot 
-        - -p{{root_password}} 
-        - -h{{database.host}} 
-        - -e 
-        - 'CREATE DATABASE IF NOT EXISTS {{database.db.name}} CHARACTER SET {{database.db.charset}} COLLATE {{database.db.collation}};'
+        - make
+        - create-db
+        - 'name="{{database.db.name}}"'
+        - 'charset="{{database.db.charset}}"'
+        - 'collation="{{database.db.collation}}"'        
+        - 'host="{{database.host}}"'
       drop:
         args:
         - make
         - drop-db
-        - 'name="{{database.db.name}}"'
-        - 'host="{{database.host}}"'
+        - 'name="{{database.db.name}}"'  
+        - 'host="{{database.host}}"'        
   user:
     name: '{{app.name}}_{{instance.name}}'  
     password: '{{password}}'
     actions:
       create: 
         args:
-        - mysql 
-        - -uroot 
-        - -p{{root_password}} 
-        - -h{{database.host}} 
-        - -e 
-        - "CREATE USER IF NOT EXISTS '{{database.user.name}}'@'%' IDENTIFIED BY '{{database.user.password}}';"
+        - make
+        - create-user
+        - 'username="{{database.user.name}}"'
+        - 'password="{{database.user.password}}"'
+        - 'host="{{database.host}}"'        
       drop:
         args:
-        - mysql 
-        - -uroot 
-        - -p{{root_password}} 
-        - -h{{database.host}} 
-        - -e 
-        - "DROP USER IF EXISTS '{{database.user.name}}'@'%';"
+        - make
+        - drop-user
+        - 'username="{{database.user.name}}"'
+        - 'host="{{database.host}}"'        
       grant:
         args:
-        - mysql 
-        - -uroot 
-        - -p{{root_password}} 
-        - -h{{database.host}} 
-        - -e
-        - "GRANT ALL ON {{database.db.name}}.* TO '{{database.user.name}}'@'%';"
+        - make
+        - grant-user-db
+        - 'username="{{database.user.name}}"'
+        - 'db="{{database.db.name}}"'
+        - 'host="{{database.host}}"'
       revoke:
         args:
-        - mysql 
-        - -uroot 
-        - -p{{root_password}} 
-        - -h{{database.host}} 
-        - -e
-        - "REVOKE ALL ON {{database.db.name}}.* FROM '{{database.user.name}}'@'%';"
+        - make
+        - revoke-user-db
+        - 'username="{{database.user.name}}"'
+        - 'db="{{database.db.name}}"'
+        - 'host="{{database.host}}"'
   charsets:
   - name: utf16
     title: UTF-16 Unicode
@@ -136,14 +132,14 @@ backups:
   title: Default database backup
   create:
     args:
-    - sh
-    - -c
-    - |
-      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-data --allow-keywords --skip-triggers {{database.db.name}} | gzip > /bitnami/mariadb/backup.sql.gz;
-      mysqldump -h{{database.host}} -uroot -p{{root_password}} --single-transaction --no-create-info {{db_backup_ignore_tables}} --allow-keywords {{database.db.name}} | gzip >> /bitnami/mariadb/backup.sql.gz;
-      stat -c "RESULT=%s" /bitnami/mariadb/backup.sql.gz
+    - make
+    - backup
+    - 'host="{{database.host}}"'
+    - 'db="{{database.db.name}}"'
+    - 'ignore="{{db_backup_ignore_tables}}"'
+    - 'filepath=/var/lib/mysql/backup.sql.gz'    
   upload:
-    filepath: /bitnami/mariadb/backup.sql.gz
+    filepath: /var/lib/mysql/backup.sql.gz
     extension: sql.gz
   integrations:
   - backup-destination
@@ -155,14 +151,12 @@ tokens:
 - name: password
   generate:
     regex: '[0-9a-z-]{32}'
-- name: db_backup_ignore_tables
-  value: ''
 
 helm:
-  name: bitnami
-  source: oci://registry-1.docker.io/bitnamicharts/mariadb
-  chart: oci://registry-1.docker.io/bitnamicharts/mariadb
-  version: 18.0.2
+  name: wodby
+  source: oci://registry-1.docker.io/wodby/mariadb
+  chart: oci://registry-1.docker.io/wodby/mariadb
+  version: 0.1.0
   configurations:
   - name: mariadb
     labels: commonLabels
@@ -172,38 +166,33 @@ helm:
   values:
   - name: rootPassword
     value: '{{root_password}}'
-  - name: primary.createConfigmap
-    value: true
   - name: auth.rootPassword
     value: '{{root_password}}'
   - name: primary.resourcesPreset
     value: 'none'
 
-configs: 
-- name: config
-  title: MySQL config
-  helm: primary.configuration
-  config: my.cnf
-
 actions:
+- name: mysql_upgrade
+  title: Run mysql-upgrade
+  args: 
+  - make
+  - mysql-upgrade
+  - 'host="{{database.host}}"'
+  type: post_upgrade
 - name: mysql_check_db
   title: Run mysql-check on current database
   args: 
-  - mysqlcheck
-  - --verbose 
-  - -uroot 
-  - -p{{root_password}} 
-  - -h{{database.host}}
-  - '{{database.db.name}}'
+  - make
+  - mysql-check
+  - 'host="{{database.host}}"'
+  - 'db="{{database.db.name}}"'  
   type: post_upgrade
 - name: mysql_check_system
   title: Run mysql-check on system database
   args: 
-  - mysqlcheck
-  - --verbose 
-  - -uroot 
-  - -p{{root_password}} 
-  - -h{{database.host}}
-  - mysql
+  - make
+  - mysql-check
+  - 'host="{{database.host}}"'
+  - 'db="mysql"'  
   type: post_upgrade
-
+  
