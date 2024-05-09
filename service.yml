@@ -151,6 +151,8 @@ tokens:
 - name: password
   generate:
     regex: '[0-9a-z-]{32}'
+- name: db_backup_ignore_tables
+  value: ''
 
 helm:
   name: wodby
