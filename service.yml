@@ -13,7 +13,7 @@ containers:
 options:
 - version: '11.2'
   tag: '11.2'
-routes:
+endpoints:
 - name: mariadb
   ports:
   - name: mariadb
