@@ -6,10 +6,6 @@ hostname: mariadb
 containers:
 - name: mariadb
   image: wodby/mariadb
-  ports:
-  - name: mariadb
-    number: 3306
-    type: tcp
   env:
   - name: MYSQL_ROOT_PASSWORD
     value: '{{root_password}}'
@@ -17,6 +13,12 @@ containers:
 options:
 - version: '11.2'
   tag: '11.2'
+routes:
+- name: mariadb
+  ports:
+  - name: mariadb
+    number: 3306
+    type: tcp
 labels:
 - mariadb
 - mysql
