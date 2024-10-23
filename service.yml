@@ -146,8 +146,6 @@ backups:
   upload:
     filepath: /var/lib/mysql/backup.sql.gz
     extension: sql.gz
-  integrations:
-  - backup-destination
 
 tokens:
 - name: root_password
