@@ -23,7 +23,7 @@ endpoints:
   ports:
   - name: mariadb
     number: 3306
-    type: tcp
+    protocol: tcp
 labels:
 - mariadb
 - mysql
