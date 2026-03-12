@@ -165,7 +165,7 @@ helm:
   chart: oci://registry-1.docker.io/wodby/mariadb
   version: 0.2.0
   configurations:
-  - name: mariadb
+  - container: mariadb
     labels: commonLabels
     annotations: primary.podAnnotations
     env: primary.extraEnvVars
