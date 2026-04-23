@@ -2,13 +2,6 @@ name: mariadb
 icon: mariadb
 type: db
 title: MariaDB
-containers:
-- name: mariadb
-  image: wodby/mariadb
-  env:
-  - name: MYSQL_ROOT_PASSWORD
-    value: '{{root_password}}'
-    secret: true
 options:
 - version: '11.8'
   tag: '11.8'
@@ -64,11 +57,11 @@ database:
   ssl: true
   root:
     username: root
-    password: '{{root_password}}'  
+    password: '{{root_password}}'
   db:
     name: '{{app.name}}_{{instance.name}}'
     charset: 'utf8mb4'
-    collation: 'utf8mb4_unicode_520_ci'    
+    collation: 'utf8mb4_unicode_520_ci'
     actions:
       create:
         args:
@@ -76,31 +69,31 @@ database:
         - create-db
         - 'name="{{database.db.name}}"'
         - 'charset="{{database.db.charset}}"'
-        - 'collation="{{database.db.collation}}"'        
+        - 'collation="{{database.db.collation}}"'
         - 'host="{{database.host}}"'
       drop:
         args:
         - make
         - drop-db
-        - 'name="{{database.db.name}}"'  
-        - 'host="{{database.host}}"'        
+        - 'name="{{database.db.name}}"'
+        - 'host="{{database.host}}"'
   user:
-    name: '{{app.name}}_{{instance.name}}'  
+    name: '{{app.name}}_{{instance.name}}'
     password: '{{password}}'
     actions:
-      create: 
+      create:
         args:
         - make
         - create-user
         - 'username="{{database.user.name}}"'
         - 'password="{{database.user.password}}"'
-        - 'host="{{database.host}}"'        
+        - 'host="{{database.host}}"'
       drop:
         args:
         - make
         - drop-user
         - 'username="{{database.user.name}}"'
-        - 'host="{{database.host}}"'        
+        - 'host="{{database.host}}"'
       grant:
         args:
         - make
@@ -119,13 +112,13 @@ database:
   - name: utf16
     title: UTF-16 Unicode
     collation: utf16_general_ci
-  - name: utf16le 
+  - name: utf16le
     title: UTF-16LE Unicode
     collation: utf16le_general_ci
-  - name: utf32 
+  - name: utf32
     title: UTF-32 Unicode
     collation: utf32_general_ci
-  - name: utf8 
+  - name: utf8
     title: UTF-8 Unicode
     collation: utf8_general_ci
   - name: utf8mb4
@@ -143,7 +136,7 @@ backups:
     - 'host="{{database.host}}"'
     - 'db="{{database.db.name}}"'
     - 'ignore="{{db_backup_ignore_tables}}"'
-    - 'filepath=/var/lib/mysql/backup.sql.gz'    
+    - 'filepath=/var/lib/mysql/backup.sql.gz'
   upload:
     filepath: /var/lib/mysql/backup.sql.gz
     extension: sql.gz
@@ -163,14 +156,6 @@ helm:
   source: oci://registry-1.docker.io/wodby/mariadb
   chart: oci://registry-1.docker.io/wodby/mariadb
   version: 0.2.1
-  configurations:
-  - container: mariadb
-    labels: commonLabels
-    annotations: primary.podAnnotations
-    env: primary.extraEnvVars
-    resources: primary.resources
-    volumes: primary.extraVolumes
-    mounts: primary.extraVolumeMounts
   values:
   - name: rootPassword
     value: '{{root_password}}'
@@ -182,25 +167,44 @@ helm:
 actions:
 - name: mysql_upgrade
   title: Run mysql-upgrade
-  args: 
+  args:
   - make
   - mysql-upgrade
   - 'host="{{database.host}}"'
   type: post_upgrade
 - name: mysql_check_db
   title: Run mysql-check on current database
-  args: 
+  args:
   - make
   - mysql-check
   - 'host="{{database.host}}"'
-  - 'db="{{database.db.name}}"'  
+  - 'db="{{database.db.name}}"'
   type: post_upgrade
 - name: mysql_check_system
   title: Run mysql-check on system database
-  args: 
+  args:
   - make
   - mysql-check
   - 'host="{{database.host}}"'
-  - 'db="mysql"'  
+  - 'db="mysql"'
   type: post_upgrade
-  
+
+workloads:
+- id: main
+  kind: statefulset
+  primary: true
+  containers:
+  - name: mariadb
+    image: wodby/mariadb
+    env:
+    - name: MYSQL_ROOT_PASSWORD
+      value: '{{root_password}}'
+      secret: true
+    helm:
+      resources: primary.resources
+      env: primary.extraEnvVars
+      mounts: primary.extraVolumeMounts
+  helm:
+    labels: commonLabels
+    annotations: primary.podAnnotations
+    volumes: primary.extraVolumes
