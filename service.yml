@@ -157,8 +157,6 @@ helm:
   chart: oci://registry-1.docker.io/wodby/mariadb
   version: 0.2.1
   values:
-  - name: rootPassword
-    value: '{{root_password}}'
   - name: auth.rootPassword
     value: '{{root_password}}'
   - name: primary.resourcesPreset
