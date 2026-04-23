@@ -193,6 +193,10 @@ workloads:
 - id: main
   kind: statefulset
   primary: true
+  helm:
+    labels: commonLabels
+    annotations: primary.podAnnotations
+    volumes: primary.extraVolumes
   containers:
   - name: mariadb
     image: wodby/mariadb
@@ -204,7 +208,3 @@ workloads:
       resources: primary.resources
       env: primary.extraEnvVars
       mounts: primary.extraVolumeMounts
-  helm:
-    labels: commonLabels
-    annotations: primary.podAnnotations
-    volumes: primary.extraVolumes
