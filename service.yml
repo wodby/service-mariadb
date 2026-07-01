@@ -4,12 +4,15 @@ type: db
 title: MariaDB
 options:
 - version: '11.8'
-  tag: '11.8'
+  tag: '11.8-3.35.3'
   default: true
+  eol: '2028-06-04T00:00:00+00:00'
 - version: '11.4'
-  tag: '11.4'
+  tag: '11.4-3.35.3'
+  eol: '2029-05-29T00:00:00+00:00'
 - version: '11.2'
-  tag: '11.2'
+  tag: '11.2-3.28.4'
+  eol: '2024-11-21T00:00:00+00:00'
 endpoints:
 - name: mariadb
   ports:
