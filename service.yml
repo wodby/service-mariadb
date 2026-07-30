@@ -159,6 +159,8 @@ helm:
   source: oci://registry-1.docker.io/wodby/mariadb
   chart: oci://registry-1.docker.io/wodby/mariadb
   version: 0.2.1
+  valueMappings:
+    replicas: primary.replicaCount
   values:
   - name: auth.rootPassword
     value: '{{root_password}}'
