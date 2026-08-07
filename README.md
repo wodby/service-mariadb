@@ -29,7 +29,7 @@ configuration for MariaDB.
 | Containers | `mariadb` using `wodby/mariadb` |
 | Endpoints | `mariadb`: TCP 3306 |
 | Volumes | Data, 10 GB |
-| Helm | chart `oci://registry-1.docker.io/wodby/mariadb`; version `0.2.1` |
+| Helm | chart `oci://registry-1.docker.io/wodby/mariadb`; version `0.2.2` |
 | Configuration | 3 generated or fixed tokens |
 | Operations | 3 actions, 1 import workflows, 1 backup workflows |
 

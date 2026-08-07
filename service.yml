@@ -158,7 +158,7 @@ helm:
   name: wodby
   source: oci://registry-1.docker.io/wodby/mariadb
   chart: oci://registry-1.docker.io/wodby/mariadb
-  version: 0.2.1
+  version: 0.2.2
   valueMappings:
     replicas: primary.replicaCount
   values:
