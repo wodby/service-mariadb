@@ -158,9 +158,12 @@ helm:
   name: wodby
   source: oci://registry-1.docker.io/wodby/mariadb
   chart: oci://registry-1.docker.io/wodby/mariadb
-  version: 0.2.2
+  version: 0.3.0
   valueMappings:
     replicas: primary.replicaCount
+    strategy: primary.updateStrategy
+    minReady: primary.minReadySeconds
+    shutdownGracePeriod: primary.terminationGracePeriodSeconds
   values:
   - name: auth.rootPassword
     value: '{{root_password}}'
