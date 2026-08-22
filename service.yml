@@ -154,6 +154,11 @@ tokens:
 - name: db_backup_ignore_tables
   value: ''
 
+deployment:
+  strategy: rolling
+  minReady: 10s
+  shutdownGracePeriod: 30s
+
 helm:
   name: wodby
   source: oci://registry-1.docker.io/wodby/mariadb
