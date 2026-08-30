@@ -47,6 +47,11 @@ imports:
     env:
     - name: MYSQL_DATABASE
       value: '{{database.db.name}}'
+    - name: MYSQL_USER
+      value: '{{database.user.name}}'
+    - name: MYSQL_PASSWORD
+      value: '{{database.user.password}}'
+      secret: true
   extensions:
   - gz
   - tar.gz
