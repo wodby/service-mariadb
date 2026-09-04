@@ -4,11 +4,11 @@ type: db
 title: MariaDB
 options:
 - version: '11.8'
-  tag: '11.8-3.36.0'
+  tag: '11.8-3.36.1'
   default: true
   eol: '2028-06-04T00:00:00+00:00'
 - version: '11.4'
-  tag: '11.4-3.36.0'
+  tag: '11.4-3.36.1'
   eol: '2029-05-29T00:00:00+00:00'
 - version: '11.2'
   tag: '11.2-3.28.4'
@@ -140,7 +140,8 @@ backups:
   options:
   - name: excluded_tables
     title: Excluded table contents
-    description: MariaDB table names or SQL LIKE patterns whose definitions are retained while their rows are omitted.
+    description: MariaDB table names or SQL LIKE patterns whose definitions are 
+      retained while their rows are omitted.
     type: table_list
     defaultToken: db_backup_ignore_tables
   create:
