@@ -24,12 +24,12 @@ configuration for MariaDB.
 | --- | --- |
 | Service name | `mariadb` |
 | Type | Database |
-| Versions | `11.8` by default; also available: `11.4`, `11.2` |
+| Versions | `11.8` by default; also available: `11.4` |
 | Workloads | `main` (StatefulSet), primary |
 | Containers | `mariadb` using `wodby/mariadb` |
 | Endpoints | `mariadb`: TCP 3306 |
 | Volumes | Data, 10 GB |
-| Helm | chart `oci://registry-1.docker.io/wodby/mariadb`; version `0.2.2` |
+| Helm | chart `oci://registry-1.docker.io/wodby/mariadb`; version `0.4.0` |
 | Configuration | 3 generated or fixed tokens |
 | Operations | 3 actions, 1 import workflows, 1 backup workflows |
 
