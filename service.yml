@@ -4,6 +4,9 @@ type: db
 title: MariaDB
 guidance: GUIDANCE.md
 options:
+- version: '12.3'
+  tag: 12.3-r4
+  eol: '2029-06-12T00:00:00+00:00'
 - version: '11.8'
   tag: 11.8-r1
   default: true
@@ -152,6 +155,7 @@ backups:
     - 'filepath=/var/lib/mysql/backup.sql.gz'
   stream:
     optionVersions:
+    - '12.3'
     - '11.8'
     - '11.4'
     args:
