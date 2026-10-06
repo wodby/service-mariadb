@@ -2,6 +2,7 @@ name: mariadb
 icon: mariadb
 type: db
 title: MariaDB
+guidance: GUIDANCE.md
 options:
 - version: '11.8'
   tag: 11.8-r1
