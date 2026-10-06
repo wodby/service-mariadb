@@ -24,7 +24,7 @@ configuration for MariaDB.
 | --- | --- |
 | Service name | `mariadb` |
 | Type | Database |
-| Versions | `11.8` by default; also available: `11.4` |
+| Versions | `11.8` by default; also available: `12.3` (LTS), `11.4` |
 | Workloads | `main` (StatefulSet), primary |
 | Containers | `mariadb` using `wodby/mariadb` |
 | Endpoints | `mariadb`: TCP 3306 |
