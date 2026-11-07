@@ -240,6 +240,10 @@ workloads:
   containers:
   - name: mariadb
     image: wodby/mariadb
+    resources:
+      request:
+        cpu: 20
+        memory: 128
     env:
     - name: MYSQL_ROOT_PASSWORD
       value: '{{root_password}}'
