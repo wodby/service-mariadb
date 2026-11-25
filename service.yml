@@ -5,17 +5,17 @@ title: MariaDB
 guidance: GUIDANCE.md
 options:
 - version: '12.3'
-  tag: 12.3-r21
-  digest: sha256:bba1edea58654df8a2c0c740ce21cd2b1ece2f522e1685d0787ccfcae3c32e02
+  tag: 12.3-r22
+  digest: sha256:897491b6e97172726e1af3e8857f4c1a5e58efb198320e95db2bdaf35efe547a
   eol: '2029-06-12T00:00:00+00:00'
 - version: '11.8'
-  tag: 11.8-r21
-  digest: sha256:c46546ff68a2ee633d97ea2e189fe43d557fefdd7f149f8a7f92d24262b2bec9
+  tag: 11.8-r22
+  digest: sha256:832538dd142659709a6a20ddde4b64a90854103025579ba03812e22b6588fa24
   default: true
   eol: '2028-06-04T00:00:00+00:00'
 - version: '11.4'
-  tag: 11.4-r21
-  digest: sha256:60e8fbacbb366adc57d0af3fa76c189df8beaed93f551675bf2229d77d686f8e
+  tag: 11.4-r22
+  digest: sha256:cbe1dab030ccb17b15443c419509042b80ae7defbff9e498e2ee7d490a2d7fab
   eol: '2029-05-29T00:00:00+00:00'
 endpoints:
 - name: mariadb
